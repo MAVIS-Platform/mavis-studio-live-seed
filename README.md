@@ -97,6 +97,14 @@ docker run --rm --network mavis-studio-live-seed_default curlimages/curl:8.10.1 
 The controller must remain in the real call path. Do not point `orders` directly at
 `payment`; that would bypass the prepared wire.
 
+## Verification
+
+Verified locally on 15/11/2026 with Docker Linux Engine:
+
+- route-controller running: `GET /orders` returns **200**
+- route-controller stopped: `GET /orders` returns **502**
+- route-controller started again: `GET /orders` returns **200**
+
 ## Notes
 
 - The seed uses the MAVIS Runner's .NET auto-instrumentation; no OTel package is
