@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "blocks": [
+    {
+      "service": "orders",
+      "label": "Order API",
+      "canScale": true,
+      "initiallyStopped": false
+    },
+    {
+      "service": "payment",
+      "label": "Payment API",
+      "canScale": false,
+      "initiallyStopped": true
+    }
+  ],
+  "connections": [
+    {
+      "from": "orders",
+      "to": "payment",
+      "controllerService": "orders-payment-route",
+      "protocol": "HTTP",
+      "initiallyStopped": true
+    }
+  ]
+}

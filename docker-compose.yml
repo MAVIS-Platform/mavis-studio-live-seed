@@ -1,0 +1,38 @@
+name: mavis-studio-live-seed
+
+services:
+  orders:
+    build:
+      context: ./orders
+    image: mavis-studio-live-seed-orders:local
+    environment:
+      PAYMENT_URL: http://orders-payment-route:8080
+    expose:
+      - "8080"
+    depends_on:
+      - orders-payment-route
+    restart: "no"
+
+  payment:
+    build:
+      context: ./payment
+    image: mavis-studio-live-seed-payment:local
+    expose:
+      - "8080"
+    restart: "no"
+
+  orders-payment-route:
+    build:
+      context: ./orders-payment-route
+    image: mavis-studio-live-seed-orders-payment-route:local
+    environment:
+      UPSTREAM_URL: http://payment:8080
+    expose:
+      - "8080"
+    depends_on:
+      - payment
+    restart: "no"
+
+networks:
+  default:
+    internal: true
