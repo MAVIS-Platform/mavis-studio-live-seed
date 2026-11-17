@@ -2,9 +2,7 @@ name: mavis-studio-live-seed
 
 services:
   orders:
-    build:
-      context: ./orders
-    image: mavis-studio-live-seed-orders:local
+    image: __ORDERS_IMAGE__
     environment:
       PAYMENT_URL: http://orders-payment-route:8080
     expose:
@@ -14,17 +12,13 @@ services:
     restart: "no"
 
   payment:
-    build:
-      context: ./payment
-    image: mavis-studio-live-seed-payment:local
+    image: __PAYMENT_IMAGE__
     expose:
       - "8080"
     restart: "no"
 
   orders-payment-route:
-    build:
-      context: ./orders-payment-route
-    image: mavis-studio-live-seed-orders-payment-route:local
+    image: __ROUTE_IMAGE__
     environment:
       UPSTREAM_URL: http://payment:8080
     expose:

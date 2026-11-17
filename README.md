@@ -115,6 +115,21 @@ Verified locally on 15/11/2026 with Docker Linux Engine:
   mounts.
 - This repository is a test fixture, not a production template.
 
+## Published images for remote Studio Live
+
+`docker-compose.dev.yml` is the local build file. For a remote Runner / production
+Studio Live, use the digest-pinned root `docker-compose.yml`:
+
+1. Push to `main` (or run the **Publish Studio Live images** workflow manually).
+2. The workflow builds the three services, pushes
+   `ghcr.io/mavis-platform/mavis-studio-live-seed-<service>:<commit-sha>` and commits
+   `docker-compose.yml` with `@sha256:` image references.
+3. Make the GHCR packages public, or run `docker login ghcr.io` on the Runner host so
+   Docker can pull them.
+4. Import this repository at the commit that contains the digest-pinned
+   `docker-compose.yml`. The Runner never builds from `build:`; it only pulls the
+   published digests.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
