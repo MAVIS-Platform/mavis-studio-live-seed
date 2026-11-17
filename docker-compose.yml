@@ -2,7 +2,7 @@ name: mavis-studio-live-seed
 
 services:
   orders:
-    image: __ORDERS_IMAGE__
+    image: ghcr.io/mavis-platform/mavis-studio-live-seed-orders@sha256:dd6f0ee1fdc839ca0c862aa6367bfceb6291212ebb3c25db6b0d9d19a219162c
     environment:
       PAYMENT_URL: http://orders-payment-route:8080
     expose:
@@ -12,13 +12,13 @@ services:
     restart: "no"
 
   payment:
-    image: __PAYMENT_IMAGE__
+    image: ghcr.io/mavis-platform/mavis-studio-live-seed-payment@sha256:7809d5c4056c83446ee9cbda618fbb696c478629416b8bf46192342b6c24088e
     expose:
       - "8080"
     restart: "no"
 
   orders-payment-route:
-    image: __ROUTE_IMAGE__
+    image: ghcr.io/mavis-platform/mavis-studio-live-seed-orders-payment-route@sha256:32fe2d5e5268f53e55c90ce01db9202bd58866921fe6454dacf8d56eaded676d
     environment:
       UPSTREAM_URL: http://payment:8080
     expose:
